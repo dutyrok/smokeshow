@@ -52,7 +52,7 @@ def test_upload_error(tmp_path, mocker):
 
     result = runner.invoke(cli, ['upload', str(tmp_path)])
     assert result.exit_code == 1, result.stdout
-    assert result.stdout == 'intentional error testing upload\n'
+    assert result.stderr == 'intentional error testing upload\n'
 
     mocker_upload.assert_called_once()
 
@@ -67,5 +67,5 @@ def test_upload_http_error(tmp_path, mocker):
 
     result = runner.invoke(cli, ['upload', str(tmp_path), '--auth-key', 'testing-auth-key'], catch_exceptions=False)
     assert result.exit_code == 1, result.stdout
-    assert result.stdout == 'Error creating ephemeral site testing file upload failure\n'
+    assert result.stderr == 'Error creating ephemeral site testing file upload failure\n'
     mocker_upload.assert_called_once()
